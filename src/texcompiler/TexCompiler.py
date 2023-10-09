@@ -14,6 +14,15 @@
 import os
 import subprocess
 
+# setup paths with proper formatting
+def formatPath(enginePath):
+    if enginePath != '':
+        if enginePath[-1] != '/':
+            enginePath += '/'
+
+    return enginePath
+
+
 # setup environment for custom tex packages
 def setupTexEnv(packages):
 
@@ -74,20 +83,19 @@ def compileTeX(texFile, **kwargs):
     texEngine = kwargs['texEngine'] if 'texEngine' in kwargs else 'xelatex'
     texEnginePath = kwargs['texEnginePath'] if 'texEnginePath' in kwargs else ''  
     bibTexEngine = kwargs['bibTexEngine'] if 'bibTexEngine' in kwargs else 'bibtex'
+    bibTexEnginePath = kwargs['bibTexEnginePath'] if 'bibTexEnginePath' in kwargs else ''  
     packages = kwargs['packages'] if 'packages' in kwargs else None
 
     # process keyword arguments
-    if texEnginePath != '':
-        if texEnginePath[-1] != '/':
-            texEnginePath += '/'
+    texEnginePath = formatPath(texEnginePath)
+    bibTexEnginePath = formatPath(bibTexEnginePath)
 
     # setup environment
     env = setupTexEnv(packages)
 
     # setup tex commands
     texCmd = [f'{texEnginePath}{texEngine}', texFile]
-    print(texCmd)
-    bibtexCmd = [bibTexEngine, texFile[:-4]]
+    bibtexCmd = [f'{bibTexEnginePath}{bibTexEngine}', texFile[:-4]]
 
     # check if the document has a bibtex bibliography
     hasBibtex = False

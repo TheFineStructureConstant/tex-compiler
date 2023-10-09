@@ -55,6 +55,25 @@ def parseTexCmdInputs():
     )
 
     texParser.add_argument(
+        '--bibtex-engine',
+        type = str,
+        required = False,
+        dest = 'bibTexEngine',
+        default = 'bibtex',
+        help = 'Name of the BibTeX engine binary to use in compilation'
+    )
+    
+    texParser.add_argument(
+        '--bibtex-engine-path',
+        type = str,
+        required = False,
+        default = '/usr/bin/bibtex',
+        dest = 'bibTexEnginePath',
+        help = 'Path to the BibTeX engine binary to use for compilation.\n'\
+               'If no path is specified, the system default will be used.'
+    )
+
+    texParser.add_argument(
         '--html',
         action = "store_false",
         required = False,
