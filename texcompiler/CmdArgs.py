@@ -13,7 +13,7 @@
 
 from argparse import ArgumentParser
 
-from texcompiler.defaults import rmExts
+from texcompiler.Defaults import rmExts
 
 def parseTexCmdInputs():
     '''
@@ -29,7 +29,7 @@ def parseTexCmdInputs():
 
     # add tex arguments
     texParser.add_argument(
-        'tex-file',
+        'texFile',
         type = str,
         nargs = '?',
         help = 'Name of the TeX file to compile. The ".tex" extension does not need to be included'
@@ -48,7 +48,7 @@ def parseTexCmdInputs():
         '--tex-engine-path',
         type = str,
         required = False,
-        default = '/usr/bin/xelatex',
+        default = '/usr/bin/',
         dest = 'texEnginePath',
         help = 'Path to the TeX engine binary to use for compilation.\n'\
                'If no path is specified, the system default will be used.'
@@ -67,7 +67,7 @@ def parseTexCmdInputs():
         '--bibtex-engine-path',
         type = str,
         required = False,
-        default = '/usr/bin/bibtex',
+        default = '/usr/bin/',
         dest = 'bibTexEnginePath',
         help = 'Path to the BibTeX engine binary to use for compilation.\n'\
                'If no path is specified, the system default will be used.'
@@ -93,7 +93,7 @@ def parseTexCmdInputs():
     texParser.add_argument(
         '-c',
         '--clean',
-        action = "store_false",
+        action = "store_true",
         required = False,
         help = 'Clean up detritus from compilation. \n'\
              + 'Specifying this flag will remove all files with the name given in the '\

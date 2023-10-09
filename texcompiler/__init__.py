@@ -6,5 +6,6 @@
 #
 ################################################################################
 
-from texcompiler.TexCompiler import compileTeX, parseTexCmdInputs
-
+from texcompiler.TexCompiler import compileTeX
+from texcompiler.CmdArgs import parseTexCmdInputs
+import texcompiler.Defaults as defaults
