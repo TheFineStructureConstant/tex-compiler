@@ -111,7 +111,8 @@ def compileTeX(texFile, **kwargs):
         if hasBibtex:
             subprocess.run(bibtexCmd, env = env).check_returncode()
             subprocess.run(texCmd, env = env).check_returncode()
-            subprocess.run(texCmd, env = env).check_returncode()
+
+        subprocess.run(texCmd, env = env).check_returncode()
 
     except subprocess.CalledProcessError as e:
         if e.stdout is None:
