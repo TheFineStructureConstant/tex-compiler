@@ -104,6 +104,9 @@ def compileTeX(texFile, **kwargs):
             if '\\bibliography' in line:
                 hasBibtex = True
                 break
+            elif '{biblatex}' in line:
+                hasBibtex = True
+                break
     
     # compile the document
     try: 
