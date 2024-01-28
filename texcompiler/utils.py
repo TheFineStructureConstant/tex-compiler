@@ -16,5 +16,5 @@
 #   kwargs evaluated at key if key is available otherwise default value
 #
 ################################################################################
-def default(kwargs, key, default = None)
+def default(kwargs, key, default = None):
     return kwargs[key] if key in kwargs else default

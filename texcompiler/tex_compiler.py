@@ -84,7 +84,7 @@ def compileTeX(texFile, **kwargs):
     
     # extract keyword arguments 
     texEngine = default(kwargs,'texEngine','xelatex')
-    texEngineArgs = default(kwargs,'texEngineArgs','')
+    texEngineArgs = default(kwargs,'texEngineArgs',None)
     texEnginePath = default(kwargs,'texEnginePath','')
     bibTexEngine = default(kwargs,'bibTexEngine','bibtex')
     bibTexEnginePath = default(kwargs,'bibTexEnginePath','')
@@ -98,7 +98,7 @@ def compileTeX(texFile, **kwargs):
     env = setupTexEnv(packages)
 
     # setup tex commands
-    texCmd = [f'{texEnginePath}{texEngine} {texEngineArgs}', texFile]
+    texCmd = [f'{texEnginePath}{texEngine}',texEngineArgs, texFile]
     bibtexCmd = [f'{bibTexEnginePath}{bibTexEngine}', texFile[:-4]]
 
     # check if the document has a bibtex bibliography
@@ -121,12 +121,16 @@ def compileTeX(texFile, **kwargs):
 
         subprocess.run(texCmd, env = env).check_returncode()
 
+        return 0 
+
     except subprocess.CalledProcessError as e:
         if e.stdout is None:
             print(f'TeX compilation command {" ".join(e.cmd)} failed')
         else:
             print(f'TeX compilation command {" ".join(e.cmd)} failed with error:')
             print(f'{e.stdout}')
+
+        return -1
 
 
 if __name__ == "__main__":
