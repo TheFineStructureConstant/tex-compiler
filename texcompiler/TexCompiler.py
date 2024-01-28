@@ -14,8 +14,6 @@
 import os
 import subprocess
 
-from texcompiler.utils import default
-
 # setup paths with proper formatting
 def formatPath(enginePath):
     if enginePath != '':
@@ -76,19 +74,17 @@ def compileTeX(texFile, **kwargs):
     Keyword
     -------
     texEngine       - Name of the tex engine binary to use
-    texEngineArgs   - Arguments to pass to the tex engine
     texEnginePath   - Path to the specified tex engine 
     bibTexEngine    - Name of the bibtex engine binary to use
     packages        - list of paths to custom latex packages to compile in
     '''
     
     # extract keyword arguments 
-    texEngine = default(kwargs,'texEngine','xelatex')
-    texEngineArgs = default(kwargs,'texEngineArgs','')
-    texEnginePath = default(kwargs,'texEnginePath','')
-    bibTexEngine = default(kwargs,'bibTexEngine','bibtex')
-    bibTexEnginePath = default(kwargs,'bibTexEnginePath','')
-    packages = default(kwargs,'packages')
+    texEngine = kwargs['texEngine'] if 'texEngine' in kwargs else 'xelatex'
+    texEnginePath = kwargs['texEnginePath'] if 'texEnginePath' in kwargs else ''  
+    bibTexEngine = kwargs['bibTexEngine'] if 'bibTexEngine' in kwargs else 'bibtex'
+    bibTexEnginePath = kwargs['bibTexEnginePath'] if 'bibTexEnginePath' in kwargs else ''  
+    packages = kwargs['packages'] if 'packages' in kwargs else None
 
     # process keyword arguments
     texEnginePath = formatPath(texEnginePath)
@@ -98,7 +94,7 @@ def compileTeX(texFile, **kwargs):
     env = setupTexEnv(packages)
 
     # setup tex commands
-    texCmd = [f'{texEnginePath}{texEngine} {texEngineArgs}', texFile]
+    texCmd = [f'{texEnginePath}{texEngine}', texFile]
     bibtexCmd = [f'{bibTexEnginePath}{bibTexEngine}', texFile[:-4]]
 
     # check if the document has a bibtex bibliography
