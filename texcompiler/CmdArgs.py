@@ -13,7 +13,7 @@
 
 from argparse import ArgumentParser
 
-from texcompiler.defaults import rmExts
+from texcompiler.Defaults import rmExts
 
 def parseTexCmdInputs():
     '''
