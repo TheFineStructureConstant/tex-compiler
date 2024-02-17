@@ -98,7 +98,11 @@ def compileTeX(texFile, **kwargs):
     env = setupTexEnv(packages)
 
     # setup tex commands
-    texCmd = [f'{texEnginePath}{texEngine}',texEngineArgs, texFile]
+    texCmd = [f'{texEnginePath}{texEngine}']
+    if texEngineArgs is not None:
+        texCmd.append(texEngineArgs)
+    texCmd.append(texFile)
+
     bibtexCmd = [f'{bibTexEnginePath}{bibTexEngine}', texFile[:-4]]
 
     # check if the document has a bibtex bibliography
