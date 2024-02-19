@@ -14,32 +14,33 @@
 from argparse import ArgumentParser
 
 from texcompiler.defaults import rmExts
+from texcompiler.utils import default
 
-def parseTexCmdInputs():
+def buildCmdInput(**kwargs):
     '''
-      Parse arguments from command line
+    Build command line argument parser 
 
-      Outputs
-     ---------
-      parsed arguments object
+     Outputs
+    ---------
+    Argument Parser Object
     '''
-    
     # create parser object
-    texParser = ArgumentParser()
+    texParser = ArgumentParser(add_help = False)
 
     # add tex arguments
-    texParser.add_argument(
-        'texFile',
-        type = str,
-        nargs = '?',
-        help = 'Name of the TeX file to compile. The ".tex" extension does not need to be included'
-    )
+    if default(kwargs, 'add_tex_file', True): 
+        texParser.add_argument(
+            'texFile',
+            type = str,
+            nargs = '?',
+            help = 'Name of the TeX file to compile. The ".tex" extension does not need to be included'
+        )
 
     texParser.add_argument(
         '--tex-engine',
         type = str,
         required = False,
-        dest = 'texEngine',
+        dest = 'tex_engine',
         default = 'xelatex',
         help = 'Name of the TeX engine binary to use in compilation'
     )
@@ -49,7 +50,7 @@ def parseTexCmdInputs():
         type = str,
         required = False,
         default = '/usr/bin/',
-        dest = 'texEnginePath',
+        dest = 'tex_engine_path',
         help = 'Path to the TeX engine binary to use for compilation.\n'\
                'If no path is specified, the system default will be used.'
     )
@@ -58,7 +59,7 @@ def parseTexCmdInputs():
         '--bibtex-engine',
         type = str,
         required = False,
-        dest = 'bibTexEngine',
+        dest = 'bibtex_engine',
         default = 'bibtex',
         help = 'Name of the BibTeX engine binary to use in compilation'
     )
@@ -68,12 +69,13 @@ def parseTexCmdInputs():
         type = str,
         required = False,
         default = '/usr/bin/',
-        dest = 'bibTexEnginePath',
+        dest = 'bibtex_engine_path',
         help = 'Path to the BibTeX engine binary to use for compilation.\n'\
                'If no path is specified, the system default will be used.'
     )
 
     texParser.add_argument(
+        '-html',
         '--html',
         action = "store_false",
         required = False,
@@ -102,6 +104,24 @@ def parseTexCmdInputs():
              + 'remove all files with extensions listed in the "--rm-exts" flag'
     ) 
 
-    # output parsed objects 
-    return texParser.parse_args()
+    texParser.add_argument(
+        '-y',
+        '--yes',
+        required = False,
+        action = "store_true",
+        help = 'Answer "yes" to any prompts'
+    )
 
+    return texParser
+
+def parseTexCmdInputs():
+    '''
+      Parse arguments from command line
+
+      Outputs
+     ---------
+      parsed arguments object
+    '''
+    # output parsed objects 
+    texParser = buildCmdInput()
+    return texParser.parse_args()

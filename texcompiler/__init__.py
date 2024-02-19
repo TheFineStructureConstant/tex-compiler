@@ -7,5 +7,6 @@
 ################################################################################
 
 from texcompiler.tex_compiler import compileTeX
-from texcompiler.cmd_args import parseTexCmdInputs
+from texcompiler.cmd_args import * 
 import texcompiler.defaults as defaults
+from texcompiler.clean import clean 

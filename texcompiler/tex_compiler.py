@@ -75,19 +75,19 @@ def compileTeX(texFile, **kwargs):
 
     Keyword
     -------
-    texEngine       - Name of the tex engine binary to use
-    texEngineArgs   - Arguments to pass to the tex engine
-    texEnginePath   - Path to the specified tex engine 
-    bibTexEngine    - Name of the bibtex engine binary to use
-    packages        - list of paths to custom latex packages to compile in
+    tex_engine       - Name of the tex engine binary to use
+    tex_engine_args  - Arguments to pass to the tex engine
+    tex_engine_path  - Path to the specified tex engine 
+    bibtex_engine    - Name of the bibtex engine binary to use
+    packages         - list of paths to custom latex packages to compile in
     '''
     
     # extract keyword arguments 
-    texEngine = default(kwargs,'texEngine','xelatex')
-    texEngineArgs = default(kwargs,'texEngineArgs',None)
-    texEnginePath = default(kwargs,'texEnginePath','')
-    bibTexEngine = default(kwargs,'bibTexEngine','bibtex')
-    bibTexEnginePath = default(kwargs,'bibTexEnginePath','')
+    texEngine = default(kwargs,'tex_engine','xelatex')
+    texEngineArgs = default(kwargs,'tex_engine_args',None)
+    texEnginePath = default(kwargs,'tex_engine_path','')
+    bibTexEngine = default(kwargs,'bibTex_engine','bibtex')
+    bibTexEnginePath = default(kwargs,'bibtex_engine_path','')
     packages = default(kwargs,'packages')
 
     # process keyword arguments

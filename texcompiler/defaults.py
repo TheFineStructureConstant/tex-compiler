@@ -12,4 +12,6 @@
 ################################################################################
 
 # default list of file extensions to remove during cleaning
-rmExts = ['aux', 'log', 'bbl', 'blg', 'pdf']
+texExts = ['aux', 'log', 'out', 'pdf']
+bibTexExts = ['bbl', 'blg']
+rmExts = [*texExts, *bibTexExts]
