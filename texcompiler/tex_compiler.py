@@ -86,7 +86,7 @@ def compileTeX(texFile, **kwargs):
     texEngine = default(kwargs,'tex_engine','xelatex')
     texEngineArgs = default(kwargs,'tex_engine_args',None)
     texEnginePath = default(kwargs,'tex_engine_path','')
-    bibTexEngine = default(kwargs,'bibTex_engine','bibtex')
+    bibTexEngine = default(kwargs,'bibtex_engine','bibtex')
     bibTexEnginePath = default(kwargs,'bibtex_engine_path','')
     packages = default(kwargs,'packages')
 
